@@ -21,5 +21,5 @@ def updateScore (model, hit, curTime):
         model.hits += 1
     else:
         model.misses += 1
-    if curTime >= 120: #currently time is in seconds.
+    if curTime >= 120000: #time is in milliseconds.
         model.gameover = True
