@@ -17,6 +17,34 @@ for i in range(10):
     h = 0 - random.randint(0, height)
     letters.append(Letter())
 
+def randExclude(exclude, start, stop):
+    '''returns a random letter in range (rang) excluding the letters given to exclude.
+    '''
+    r = None
+    while r in exclude or r is None:
+         r = random.randrange(start, stop)
+    return r
+
+def replaceLet(let, start, stop):
+    xVals = []
+    for i in range(len(let)):
+        if let[i].x in xVals:
+            a = randExclude(xVals, start, stop)
+            let[i].x = a
+            xVals.append(a)
+        else:
+            xVals.append(let[i].x)
+    return(let)
+
+letters = replaceLet(letters, 0, 19)
+def xInLetters(l):
+    xV = []
+    for i in range(len(l)):
+        xv = l[i]
+        xV.append(xv.x)
+    return xV
+def replaceLet2(xValues):
+    return randExclude(xValues, 0, 19)
 letterSize = textFont.size('X')
 targetStart = 100
 
@@ -34,7 +62,9 @@ while not mod.gameOver:
         letters[i].y += .1 # letterSize[1]
         screen.blit(thisLetter.surf, ((width/20)*thisLetter.x, thisLetter.y))
         if thisLetter.y >= 600:
+            xs = xInLetters(letters)
             letters[i] = Letter()
+            letters[i].x = replaceLet2(xs)
             print('   X')
             mod.updateScore('m')
         if thisLetter.y > height - targetStart - letterSize[1]/2:
@@ -53,7 +83,9 @@ while not mod.gameOver:
                 for i in range(len(letters)):
                     if (keyPressed == letters[i].value
                         and letters[i].y >= height - targetStart - letterSize[1]/2):
+                        xs = xInLetters(letters)
                         letters[i] = Letter()
+                        letters[i].x = replaceLet2(xs)
             else:
                 print('      X')
                 mod.updateScore('w')
