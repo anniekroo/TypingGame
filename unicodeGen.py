@@ -9,9 +9,9 @@ def get_random_unicode(length):
 
     # Update this to include code point ranges to be sampled
     include_ranges = [
-        ( 0x0021, 0x0021 ),
-        ( 0x0023, 0x0026 ),
-        ( 0x0028, 0x007E ),
+        ( 0x1D000, 0x1D0FF ),
+        ( 0x10380, 0x1039F ),
+        ( 0x0E00, 0x0E7F ),
         ( 0x00A1, 0x00AC ),
         ( 0x00AE, 0x00FF ),
         ( 0x0100, 0x017F ),
@@ -33,4 +33,3 @@ def get_random_unicode(length):
 if __name__ == '__main__':
     x = (get_random_unicode(1))
     print(x)
-    
