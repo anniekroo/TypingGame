@@ -11,7 +11,7 @@ class Model:
         self.hits = hits
         self.misses = misses
         self.wrongKey = wrongKey
-        self.gameOver = gameOver
+        self.gameover = gameOver
 
     def score(self):
         '''Defines score'''
@@ -35,7 +35,7 @@ class Model:
             self.misses += 1
         else:
             self.wrongKey += 1
-        if curTime >= 120000:  # time is in milliseconds.
+        if curTime >= 60:  # time is in seconds.
             self.gameover = True
 
 

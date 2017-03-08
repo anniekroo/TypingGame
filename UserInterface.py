@@ -1,4 +1,4 @@
-import sys, pygame, random
+import sys, pygame, time, random
 from modely import Model, Letter
 pygame.init()
 
@@ -49,24 +49,25 @@ letterSize = textFont.size('X')
 targetStart = 100
 
 target = pygame.Surface((width, 70))
-
+startTime = time.clock()
 # screen.fill(black)
-
-while not mod.gameOver:
+curTime = time.clock() - startTime
+while not mod.gameover:
     screen.fill(black)
     target.fill(grey)
     screen.blit(target, (0, height - targetStart))
     potentials = []
     for i in range(len(letters)):
         thisLetter = letters[i]
-        letters[i].y += .1 # letterSize[1]
+        letters[i].y += .2 # letterSize[1]
         screen.blit(thisLetter.surf, ((width/20)*thisLetter.x, thisLetter.y))
         if thisLetter.y >= 600:
             xs = xInLetters(letters)
             letters[i] = Letter()
             letters[i].x = replaceLet2(xs)
             print('   X')
-            mod.updateScore('m')
+            curTime = time.clock() - startTime
+            mod.updateScore('m', curTime)
         if thisLetter.y > height - targetStart - letterSize[1]/2:
             potentials.append(thisLetter.value)
     scoreboard = scoreFont.render(('Score:' + str(mod.score())), 1, red)
@@ -79,13 +80,24 @@ while not mod.gameOver:
             keyPressed = event.key
             if keyPressed in potentials:
                 print('X')
-                mod.updateScore('h')
+                curTime = time.clock() - startTime
+                mod.updateScore('h', curTime)
                 for i in range(len(letters)):
                     if (keyPressed == letters[i].value
                         and letters[i].y >= height - targetStart - letterSize[1]/2):
                         xs = xInLetters(letters)
                         letters[i] = Letter()
                         letters[i].x = replaceLet2(xs)
+                        mod.gameOver = startTime - time.time()
             else:
                 print('      X')
-                mod.updateScore('w')
+                mod.updateScore('w', curTime)
+while mod.gameover == True:
+    screen.fill(black)
+    endFont = pygame.font.SysFont('ubuntumono', 100)
+    endText = endFont.render(('Score:' + str(mod.score())), 1, red)
+    screen.blit(endText, (width/2 -225, height/2 - 50))
+    pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
