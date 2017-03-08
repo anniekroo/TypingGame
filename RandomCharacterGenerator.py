@@ -11,9 +11,11 @@ import random
 # print(str(random_utf8_string(1), 'utf-8'))
 
 
-a = u'\\u%04x' % random.randrange(0x10000)
-z = bytes([0xeb,0xad,0xbf]).decode()
+randomUtf8 = (u'\\u%04x' % random.randrange(0x10000)).encode('utf-8')
+print(str(randomUtf8)[5:-1])
+
+z = bytes([0xeb, 0xad, 0xbf]).decode()
 print(z)
 
 
-print((u'\ubb7f').encode('utf-16'))
+print((u'\ubb7f').encode('utf-8'))
