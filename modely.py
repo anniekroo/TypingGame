@@ -1,7 +1,11 @@
-import pygame, random
+import pygame, random, unicodeGen, math
+
+
+allUnicodeChoices = unicodeGen.get_all_unicode()
 
 
 white = 255, 255, 255
+green = 0, 255, 0
 
 class Model:
     def __init__(self, hits=0, misses=0, wrongKey=0, gameOver=False):
@@ -42,16 +46,35 @@ class Model:
 class Letter:
     def __init__(self, value=None, x=None, y=None, surf=None):
         self.textFont = pygame.font.SysFont('ubuntumono', 40)
-        if y == None:
-            self.y = 0 - random.randint(0, 600)
-        else:
-            self.y = y
+        self.tailFont = pygame.font.SysFont('ubuntumono', 40)
+        charWidth = self.textFont.size('X')[0]
+        charHeight = self.textFont.size('X')[1]
+
         if(value == None):
             self.value = random.randint(97, 122)
         else:
             self.value = value
+
+        self.tail = []
+        self.tailLength = random.randint(3, 12)
+        for i in range(self.tailLength):
+            self.tail.append(random.choice(allUnicodeChoices))
+
+        self.surf = pygame.Surface((charWidth, charHeight*(self.tailLength+1)))
+        # self.surf = surf
+        # self.surf.width = charWidth
+        # self.surf.height = charHeight*(self.tailLength+1)
+        lastChar = self.textFont.render(chr(self.value), 1, white)
+        self.surf.blit(lastChar, (0, (self.tailLength)*charHeight))
+        for i in range(len(self.tail)):
+            uni = self.tailFont.render(self.tail[i], 1, green)
+            self.surf.blit(uni, (0, ((i)*charHeight)))
+
+        if y == None:
+            self.y = 0 - random.randint(0, 600) - self.tailLength*charHeight
+        else:
+            self.y = y - self.tailLength*charHeight
         if(x == None):
             self.x = random.randint(0, 19)
         else:
             self.x = x
-        self.surf = self.textFont.render(chr(self.value), 1, white)

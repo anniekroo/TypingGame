@@ -1,6 +1,8 @@
-import sys, pygame, time, random
+import sys, pygame, time, random, unicodeGen
 from modely import Model, Letter
 pygame.init()
+
+unicodeChoices = unicodeGen.get_all_unicode()
 
 size = width, height = 1200, 600
 black = 0, 0, 0
@@ -52,7 +54,10 @@ target = pygame.Surface((width, 70))
 startTime = time.clock()
 # screen.fill(black)
 curTime = time.clock() - startTime
+
+#clock = pygame.time.Clock()
 while not mod.gameover:
+    # msElapsed = startTime.tick(30)
     screen.fill(black)
     target.fill(grey)
     screen.blit(target, (0, height - targetStart))
