@@ -67,14 +67,14 @@ while not mod.gameover:
         thisLetter = letters[i]
         letters[i].y += .2 # letterSize[1]
         screen.blit(thisLetter.surf, ((width/20)*thisLetter.x, thisLetter.y))
-        if thisLetter.y >= 600:
+        if thisLetter.getEnd() >= 600:
             xs = xInLetters(letters)
             letters[i] = Letter()
             letters[i].x = replaceLet2(xs)
             print('   X')
             curTime = time.clock() - startTime
             mod.updateScore('m', curTime)
-        if thisLetter.y > height - targetStart - letterSize[1]/2:
+        if thisLetter.getEnd() > height - targetStart:  # - letterSize[1]/2:
             potentials.append(thisLetter.value)
     scoreboard = scoreFont.render(('Score:' + str(mod.score())), 1, red)
     screen.blit(scoreboard, (width - 100, 10))
@@ -90,7 +90,7 @@ while not mod.gameover:
                 mod.updateScore('h', curTime)
                 for i in range(len(letters)):
                     if (keyPressed == letters[i].value
-                        and letters[i].y >= height - targetStart - letterSize[1]/2):
+                       and letters[i].getEnd() >= height - targetStart):
                         xs = xInLetters(letters)
                         letters[i] = Letter()
                         letters[i].x = replaceLet2(xs)

@@ -75,10 +75,13 @@ class Letter:
         self.height = self.surf.get_height()
 
         if y == None:
-            self.y = 0 - random.randint(0, 600)+self.height
+            self.y = 0 - (random.randint(0, 600) + self.height)
         else:
-            self.y = y + self.height
+            self.y = y
         if(x == None):
             self.x = random.randint(0, 19)
         else:
             self.x = x
+
+    def getEnd(self):
+        return self.y + self.height
