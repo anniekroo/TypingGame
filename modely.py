@@ -44,11 +44,15 @@ class Model:
 
 
 class Letter:
-    def __init__(self, value=None, x=None, y=None, surf=None, font='ARIALUNI.TTF'):
-        self.font = font
+    '''Letter objects include the letter to be typed, its location on the screen,
+    and other similar information, and the random unicode string that follows it'''
 
+    def __init__(self, font='ARIALUNI.TTF', value=None, x=None, y=None, surf=None):
+        # arguments not passed in are randomly generated
+        self.font = font
         self.textFont = pygame.font.Font(self.font, 40)
         self.tailFont = pygame.font.Font(self.font, 40)
+
         charWidth = 40  # self.textFont.size('X')[0]
         charHeight = self.textFont.size('X')[1]
 
