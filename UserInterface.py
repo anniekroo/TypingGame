@@ -2,7 +2,7 @@ import sys, pygame, random, unicodeGen
 from modely import Model, Letter
 
 speed = 3
-runTime = 60  # seconds
+runTime = 30  # seconds
 
 pygame.init()
 
@@ -132,7 +132,7 @@ while not mod.gameover:  # This is the main loop
     # Add the scoreboard and update the dispay:
     scoreboard = scoreFont.render(
         ('Score: ' + str(round(mod.score(), 1))), 1, red)
-    screen.blit(scoreboard, (width - 100, 10))
+    screen.blit(scoreboard, (width - (scoreboard.get_size()[0] + 5), 10))
     pygame.display.flip()
 
 while mod.gameover:
