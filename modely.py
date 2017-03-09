@@ -9,7 +9,7 @@ class Model:
     '''Model keeps track of the game state, including running time and
     score-related info'''
 
-    def __init__(self, hits=0, misses=0, wrongKey=0, gameOver=False):
+    def __init__(self, runTime=60, hits=0, misses=0, wrongKey=0, gameOver=False):
         '''keeps track of hits misses and game state and initializes the class.
         When undefined, hits and misses equal zero and gameover is false.
         '''
@@ -17,6 +17,7 @@ class Model:
         self.misses = misses
         self.wrongKey = wrongKey
         self.gameover = gameOver
+        self.runTime = runTime
 
     def score(self):
         '''Keeps track of score'''
@@ -25,7 +26,7 @@ class Model:
             return 0
         return (self.hits / total) * 100
 
-    def updateScore(self, event, curTime=0):
+    def updateScore(self, event, timeRunning):
         '''Updates score statistics by modifying values in the class model'''
         if event == 'h':
             self.hits += 1
@@ -33,7 +34,7 @@ class Model:
             self.misses += 1
         else:
             self.wrongKey += 1
-        if curTime >= 60:  # time is in seconds.
+        if timeRunning/1000 >= self.runTime:  # Game over after runTime seconds
             self.gameover = True
 
 
@@ -80,6 +81,7 @@ class Letter:
 
         if y == None:
             self.y = 0 - (random.randint(0, 600) + self.height)
+            # Place the surface off the screen
         else:
             self.y = y
         if(x == None):
@@ -88,4 +90,5 @@ class Letter:
             self.x = x
 
     def getEnd(self):
+        # return the coordinates of the bottom end of the surface
         return self.y + self.height
