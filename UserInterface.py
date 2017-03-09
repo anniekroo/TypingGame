@@ -1,4 +1,4 @@
-import sys, pygame, time, random, unicodeGen
+import sys, pygame, random, unicodeGen
 from modely import Model, Letter
 
 speed = 3
