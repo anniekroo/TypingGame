@@ -44,10 +44,12 @@ class Model:
 
 
 class Letter:
-    def __init__(self, value=None, x=None, y=None, surf=None):
-        self.textFont = pygame.font.SysFont('ubuntumono', 40)
-        self.tailFont = pygame.font.SysFont('ubuntumono', 40)
-        charWidth = self.textFont.size('X')[0]
+    def __init__(self, value=None, x=None, y=None, surf=None, font='ARIALUNI.TTF'):
+        self.font = font
+
+        self.textFont = pygame.font.Font(self.font, 40)
+        self.tailFont = pygame.font.Font(self.font, 40)
+        charWidth = 40  # self.textFont.size('X')[0]
         charHeight = self.textFont.size('X')[1]
 
         if(value == None):
@@ -70,10 +72,12 @@ class Letter:
             uni = self.tailFont.render(self.tail[i], 1, green)
             self.surf.blit(uni, (0, ((i)*charHeight)))
 
+        self.height = self.surf.get_height()
+
         if y == None:
-            self.y = 0 - random.randint(0, 600) - self.tailLength*charHeight
+            self.y = 0 - random.randint(0, 600)+self.height
         else:
-            self.y = y - self.tailLength*charHeight
+            self.y = y + self.height
         if(x == None):
             self.x = random.randint(0, 19)
         else:

@@ -41,3 +41,6 @@ def get_all_unicode():
 #     x = (get_random_unicode())
 #     print(x)
 #
+if __name__ == '__main__':
+    x = (get_random_unicode(1))
+    print(x)

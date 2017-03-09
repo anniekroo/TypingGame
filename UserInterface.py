@@ -3,14 +3,15 @@ from modely import Model, Letter
 pygame.init()
 
 unicodeChoices = unicodeGen.get_all_unicode()
+font = 'ARIALUNI.TTF'
 
 size = width, height = 1200, 600
 black = 0, 0, 0
 white = 255, 255, 255
 grey = 50, 50, 50
 red = 255, 0, 0
-textFont = pygame.font.SysFont('ubuntumono', 40)
-scoreFont = pygame.font.SysFont('ubuntumono', 20)
+textFont = pygame.font.Font(font, 40)
+scoreFont = pygame.font.Font(font, 20)
 
 screen = pygame.display.set_mode(size)
 mod = Model()
