@@ -81,6 +81,11 @@ while not mod.gameover:  # This is the main loop
     screen.blit(target, (0, height - targetStart))
     potentials = []
 
+    if mod.score() < 10:
+        speed = 2
+    else:
+        speed = mod.score()/10
+
     for i in range(len(letters)):
         # Go through all the letters to update their positions and
         # determine whether they are on the screen and whether they are in the
@@ -139,6 +144,7 @@ while mod.gameover:
     screen.blit(endText, (width/2 - endTextSize[0]/2,
                           height/2 - endTextSize[1]/2))
     pygame.display.flip()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
